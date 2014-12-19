@@ -9,15 +9,28 @@ This package will lint your opened Lua files in Atom, using [luacheck](https://g
 * `$ apm install linter-luacheck`
 
 ## Configuration
+
+Atom -> Preferences... -> Linter luacheck -> Settings have the follow settings:
+
 * **Executable** Path to your luacheck executable.
-* **RC File** Path to a custom luachecklintrc
+* **Globals** Add more globals names to standard ones, separated by comma, eg `jit, bit`.
+* **Ignore** Ignore warnings related to these variables names, separated by comma, eg `self, myvar`.
 
 ## Other available linters
 There are other linters available - take a look at the linters [mainpage](https://github.com/AtomLinter/Linter).
 
 ## Changelog
 
+### 0.3.0
+
+- Added config globals and ignore
+- Add config descriptions
+- Removed config rcfile
+
+### 0.2.0
+
+- Published.
+
 ### 0.1.0
 
- - Implemented first version of 'linter-luacheck'
-
+- Implemented first version of 'linter-luacheck'
