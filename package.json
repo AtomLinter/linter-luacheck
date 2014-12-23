@@ -5,7 +5,7 @@
   "main": "./lib/init",
   "version": "0.3.0",
   "description": "Lint Lua on the fly, using luacheck",
-  "repository": "https://github.com/xpol/linter-luacheck",
+  "repository": "https://github.com/AtomLinter/linter-luacheck",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
