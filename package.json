@@ -1,7 +1,7 @@
 {
   "name": "linter-luacheck",
   "linter-package": true,
-  "activationEvents": [],
+  "activationCommands": [],
   "main": "./lib/init",
   "version": "0.3.3",
   "description": "Lint Lua on the fly, using luacheck",
