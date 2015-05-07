@@ -1,12 +1,8 @@
 {
   "name": "linter-luacheck",
   "description": "Lint Lua on the fly, using luacheck",
-  "keywords": [
-    "linter",
-    "lua"
-  ],
+  "keywords": [ "linter", "lua" ],
   "linter-package": true,
-  "activationCommands": [],
   "main": "./lib/init",
   "version": "0.4.0",
   "repository": "https://github.com/AtomLinter/linter-luacheck",
