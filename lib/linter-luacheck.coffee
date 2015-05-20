@@ -21,14 +21,13 @@ class LinterLuacheck extends Linter
     @cwd = atom.project.path ? @cwd
 
     # Set to observe config options
-    atom.config.observe 'linter-luacheck.executable', => @updateCommand()
-    atom.config.observe 'linter-luacheck.globals', => @updateCommand()
-    atom.config.observe 'linter-luacheck.ignore', => @updateCommand()
-
+    @connections =[
+      atom.config.observe('linter-luacheck.executable', => @updateCommand()),
+      atom.config.observe('linter-luacheck.globals', => @updateCommand()),
+      atom.config.observe('linter-luacheck.ignore', => @updateCommand()),
+    ]
   destroy: ->
-    atom.config.unobserve 'linter-luacheck.executable'
-    atom.config.unobserve 'linter-luacheck.globals'
-    atom.config.unobserve 'linter-luacheck.ignore'
+    c.dispose for c in @connections
 
   # Sets the command based on config options
   updateCommand: ->
@@ -43,11 +42,11 @@ class LinterLuacheck extends Linter
   getCmdAndArgs: (filePath) ->
     {command, args} = super (filePath)
     if @globals and @globals.length > 0
-        args.push '--globals'
-        args = args.concat @globals
+      args.push '--globals'
+      args = args.concat @globals
     if @ignore and @ignore.length > 0
-        args.push '--ignore'
-        args = args.concat @ignore
+      args.push '--ignore'
+      args = args.concat @ignore
 
     return {
       command: command,
