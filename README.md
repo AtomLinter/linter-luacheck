@@ -22,6 +22,8 @@ There are other linters available - take a look at the linters [mainpage](https:
 
 ## Changelog
 
+### 1.0.0
+
 ### 0.3.0
 
 - Added config globals and ignore

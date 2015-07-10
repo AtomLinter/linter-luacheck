@@ -5,7 +5,13 @@
     "linter",
     "lua"
   ],
-  "linter-package": true,
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
+  },
   "main": "./lib/init",
   "version": "0.5.0",
   "repository": "https://github.com/AtomLinter/linter-luacheck",
@@ -13,5 +19,7 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "atom-linter": "^1.0.0"
+  }
 }
