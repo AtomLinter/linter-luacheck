@@ -55,8 +55,8 @@ module.exports =
         ).then (output) ->
           errors = []
           lines = output.split '\n'
-          warnings = output.match(/(\d+) warnings/)
-          type = if warnings and warnings[1] != '0' then 'Warning' else 'Error'
+          nerr = output.match(/(\d+) error/)
+          type = if nerr and nerr[1] != '0' then 'Error' else 'Warning'
           for line in lines
             matches = line.match(pattern)
             if matches
