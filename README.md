@@ -19,21 +19,3 @@ Atom -> Preferences... -> Packages -> linter-luacheck -> Settings:
 ## Other available linters
 
 There are other linters available - take a look at the linters [mainpage](https://github.com/AtomLinter/Linter).
-
-## Changelog
-
-### 1.0.0
-
-### 0.3.0
-
-- Added config globals and ignore
-- Add config descriptions
-- Removed config rcfile
-
-### 0.2.0
-
-- Published.
-
-### 0.1.0
-
-- Implemented first version of 'linter-luacheck'
