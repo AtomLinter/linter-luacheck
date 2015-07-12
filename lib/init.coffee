@@ -1,5 +1,40 @@
 {BufferedProcess, CompositeDisposable} = require 'atom'
 
+path = require 'path'
+
+pattern = /^.+:(\d+):(\d+): (.*)$/
+
+parseType = (stdout) ->
+  m = stdout.match(/(\d+) error/)
+  return if m and m[1] != '0' then 'Error' else 'Warning'
+
+makeParameters = (globals, ignore) ->
+  parameters = ['-', '--no-color']
+  if globals.length > 0
+    parameters.push '--globals'
+    parameters = parameters.concat globals
+  if ignore.length > 0
+    parameters.push '--ignore'
+    parameters = parameters.concat ignore
+  return parameters
+
+makeReport = (buffer, matches, type, file) ->
+  row = parseInt(matches[1])-1
+  column = parseInt(matches[2])-1
+  msg = matches[3]
+  tm = msg.match(/near '([^']+)'/) or msg.match(/'([^']+)'/)
+  token = tm and tm[1] or ' '
+  offset = token.length
+  if token == 'self' and buffer.lineForRow(row).indexOf('self') != column
+    offset = 1
+
+  return {
+    type: type,
+    text: msg,
+    filePath: file,
+    range: [[row,column],[row,column+offset]]
+  }
+
 module.exports =
   config:
     executable:
@@ -41,34 +76,19 @@ module.exports =
       lintOnFly: true
       lint: (editor) =>
         file = editor.getPath()
-        parameters = ['-', '--no-color']
-        if @globals.length > 0
-          parameters.push '--globals'
-          parameters = parameters.concat @globals
-        if @ignore.length > 0
-          parameters.push '--ignore'
-          parameters = parameters.concat @ignore
-        pattern = /^.+:(\d+):(\d+): (.*)$/
+        buffer = editor.getBuffer()
 
-        return helpers.exec(@executable, parameters,
-          {stdin: editor.getText()}
+        return helpers.exec(@executable, makeParameters(@globals, @ignore),
+          {
+            cwd: path.dirname file
+            stdin: editor.getText()
+          }
         ).then (output) ->
           errors = []
+          type = parseType(output)
           lines = output.split '\n'
-          nerr = output.match(/(\d+) error/)
-          type = if nerr and nerr[1] != '0' then 'Error' else 'Warning'
           for line in lines
             matches = line.match(pattern)
             if matches
-              row = parseInt(matches[1])-1
-              column = parseInt(matches[2])-1
-              msg = matches[3]
-              tm = msg.match(/near '([^']+)'/) or msg.match(/'([^']+)'/)
-              token = tm and tm[1] or ''
-              errors.push {
-                type: type,
-                text: msg,
-                filePath: file,
-                range: [[row,column],[row,column+token.length]]
-              }
+              errors.push makeReport(buffer, matches, type, file)
           return errors
