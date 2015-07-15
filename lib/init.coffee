@@ -1,4 +1,5 @@
 {BufferedProcess, CompositeDisposable} = require 'atom'
+helpers = require('atom-linter')
 
 path = require 'path'
 
@@ -43,7 +44,6 @@ module.exports =
     console.log('active linter-luacheck')
 
   provideLinter: ->
-    helpers = require('atom-linter')
     provider =
       grammarScopes: ['source.lua']
       scope: 'file'
