@@ -2,38 +2,25 @@
 
 path = require 'path'
 
-pattern = /^.+:(\d+):(\d+): (.*)$/
+pattern = '.+:(?<line>\\d+):(?<col>\\d+)-(?<colEnd>\\d+):' +
+  ' \\((?<type>[EW])\\d+\\) (?<message>.*)'
 
-parseType = (stdout) ->
-  m = stdout.match(/(\d+) error/)
-  return if m and m[1] != '0' then 'Error' else 'Warning'
+checkedAppend = (parameters, opt, args) ->
+  if args.length > 0
+    parameters.push opt
+    parameters = parameters.concat globals
 
 makeParameters = (globals, ignore) ->
   parameters = ['-', '--no-color', '--codes', '--ranges']
-  if globals.length > 0
-    parameters.push '--globals'
-    parameters = parameters.concat globals
-  if ignore.length > 0
-    parameters.push '--ignore'
-    parameters = parameters.concat ignore
-  return parameters
+  checkedAppend parameters, '--globals', globals
+  checkedAppend parameters, '--ignore', ignore
+  parameters
 
-makeReport = (buffer, matches, type, file) ->
-  row = parseInt(matches[1])-1
-  column = parseInt(matches[2])-1
-  msg = matches[3]
-  tm = msg.match(/near '([^']+)'/) or msg.match(/'([^']+)'/)
-  token = tm and tm[1] or ' '
-  offset = token.length
-  if token == 'self' and buffer.lineForRow(row).indexOf('self') != column
-    offset = 1
-
-  return {
-    type: type,
-    text: msg,
-    filePath: file,
-    range: [[row,column],[row,column+offset]]
-  }
+transformReport = (report, file) ->
+  report.type = if report.type == 'E' then 'Error' else 'Warning'
+  ++report.range[1][1]
+  report.filePath = file
+  report
 
 module.exports =
   config:
@@ -63,7 +50,6 @@ module.exports =
       lintOnFly: true
       lint: (editor) ->
         file = editor.getPath()
-        buffer = editor.getBuffer()
         executable = atom.config.get 'linter-luacheck.executable'
         globals = atom.config.get 'linter-luacheck.globals'
         ignore = atom.config.get 'linter-luacheck.ignore'
@@ -74,6 +60,6 @@ module.exports =
             stdin: editor.getText()
           }
         ).then (output) ->
-          regx = '.+:(?<line>[0-9]+):(?<col>[0-9]+)-(?<colEnd>[0-9]+): \\((?<type>.)[0-9]+\\) (?<message>.*)/'
           lines = output.split '\n'
-          return helpers.parse(lines, regx)
+          return helpers.parse(lines, pattern).map (v)->
+            transformReport(v, file)
