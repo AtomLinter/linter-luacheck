@@ -1,4 +1,3 @@
-{BufferedProcess, CompositeDisposable} = require 'atom'
 helpers = require('atom-linter')
 path = require 'path'
 
