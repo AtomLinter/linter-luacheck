@@ -1,6 +1,5 @@
 {BufferedProcess, CompositeDisposable} = require 'atom'
 helpers = require('atom-linter')
-
 path = require 'path'
 
 pattern = '.+:(?<line>\\d+):(?<col>\\d+)-(?<colEnd>\\d+):' +
@@ -51,6 +50,8 @@ module.exports =
       lint: (editor) ->
         file = editor.getPath()
         executable = atom.config.get 'linter-luacheck.executable'
+        if process.platform == 'win32' and path.extname(executable) != '.bat'
+          executable += '.bat'
         globals = atom.config.get 'linter-luacheck.globals'
         ignore = atom.config.get 'linter-luacheck.ignore'
 
