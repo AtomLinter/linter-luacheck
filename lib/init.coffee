@@ -9,7 +9,7 @@ parseType = (stdout) ->
   return if m and m[1] != '0' then 'Error' else 'Warning'
 
 makeParameters = (globals, ignore) ->
-  parameters = ['-', '--no-color']
+  parameters = ['-', '--no-color', '--codes', '--ranges']
   if globals.length > 0
     parameters.push '--globals'
     parameters = parameters.concat globals
@@ -74,5 +74,6 @@ module.exports =
             stdin: editor.getText()
           }
         ).then (output) ->
-          pattern = '^.+:(?<line>\d+):(?<col>\d+): (?<message>.*)$'
-          return helpers.parse(output, pattern)
+          regx = '.+:(?<line>[0-9]+):(?<col>[0-9]+)-(?<colEnd>[0-9]+): \\((?<type>.)[0-9]+\\) (?<message>.*)/'
+          lines = output.split '\n'
+          return helpers.parse(lines, regx)
