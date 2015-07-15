@@ -54,19 +54,6 @@ module.exports =
 
   activate: ->
     console.log('active linter-luacheck')
-    @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.config.observe 'linter-luacheck.executable',
-      (executable) =>
-        @executable = executable
-    @subscriptions.add atom.config.observe 'linter-luacheck.globals',
-      (globals) =>
-        @globals = globals
-    @subscriptions.add atom.config.observe 'linter-luacheck.ignore',
-      (ignore) =>
-        @ignore = ignore
-
-  deactivate: ->
-    @subscriptions.dispose()
 
   provideLinter: ->
     helpers = require('atom-linter')
@@ -74,21 +61,18 @@ module.exports =
       grammarScopes: ['source.lua']
       scope: 'file'
       lintOnFly: true
-      lint: (editor) =>
+      lint: (editor) ->
         file = editor.getPath()
         buffer = editor.getBuffer()
+        executable = atom.config.get 'linter-luacheck.executable'
+        globals = atom.config.get 'linter-luacheck.globals'
+        ignore = atom.config.get 'linter-luacheck.ignore'
 
-        return helpers.exec(@executable, makeParameters(@globals, @ignore),
+        return helpers.exec(executable, makeParameters(globals, ignore),
           {
             cwd: path.dirname file
             stdin: editor.getText()
           }
         ).then (output) ->
-          errors = []
-          type = parseType(output)
-          lines = output.split '\n'
-          for line in lines
-            matches = line.match(pattern)
-            if matches
-              errors.push makeReport(buffer, matches, type, file)
-          return errors
+          pattern = '^.+:(?<line>\d+):(?<col>\d+): (?<message>.*)$'
+          return helpers.parse(output, pattern)
