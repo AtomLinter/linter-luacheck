@@ -7,7 +7,7 @@ pattern = '.+:(?<line>\\d+):(?<col>\\d+)-(?<colEnd>\\d+):' +
 checkedAppend = (parameters, opt, args) ->
   if args.length > 0
     parameters.push opt
-    parameters = parameters.concat globals
+    parameters = parameters.concat args
 
 makeParameters = (globals, ignore) ->
   parameters = ['-', '--no-color', '--codes', '--ranges']
