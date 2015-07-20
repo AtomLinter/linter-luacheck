@@ -60,6 +60,5 @@ module.exports =
             stdin: editor.getText()
           }
         ).then (output) ->
-          lines = output.split '\n'
-          return helpers.parse(lines, pattern).map (v)->
+          return helpers.parse(output, pattern).map (v)->
             transformReport(v, file)
