@@ -9,8 +9,8 @@ checkedAppend = (parameters, opt, args) ->
     parameters.push opt
     parameters.push(args...)
 
-makeParameters = (globals, ignore) ->
-  parameters = ['-', '--no-color', '--codes', '--ranges']
+makeParameters = (globals, ignore, file) ->
+  parameters = ['-', '--no-color', '--codes', '--ranges', "--filename=" + file]
   checkedAppend parameters, '--globals', globals
   checkedAppend parameters, '--ignore', ignore
   parameters
@@ -54,7 +54,7 @@ module.exports =
         globals = atom.config.get 'linter-luacheck.globals'
         ignore = atom.config.get 'linter-luacheck.ignore'
 
-        return helpers.exec(executable, makeParameters(globals, ignore),
+        return helpers.exec(executable, makeParameters(globals, ignore, file),
           {
             cwd: path.dirname file
             stdin: editor.getText()
