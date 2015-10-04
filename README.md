@@ -16,6 +16,6 @@ Atom -> Preferences... -> Packages -> linter-luacheck -> Settings:
 * **Globals** Add more globals names to standard ones, separated by comma, eg `jit, bit`.
 * **Ignore** Ignore warnings related to these variables names, separated by comma, eg `self, myvar`.
 
-## Other available linters
+## Contribute
 
-There are other linters available - take a look at the linters [mainpage](https://github.com/AtomLinter/Linter).
+Bugs, ideas and pull requests please go to [AtomLinter/linter-luacheck](https://github.com/AtomLinter/linter-luacheck).
