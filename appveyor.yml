@@ -23,6 +23,10 @@ install:
   - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/winmake.bat' -FileName '.appveyor/winmake.bat'
   - call .appveyor\set_compiler_env.bat
   - call .appveyor\install.bat
+  - set PATH=c:\lua\5.1.5\bin\;c:\lua\5.1.5\LuaRocks;c:\lua\5.1.5\LuaRocks\systree\bin;%PATH%
+  - set PATH=c:\lua\5.1.5\bin\;c:\lua\5.1.5\LuaRocks;c:\lua\5.1.5\LuaRocks\systree\bin;%PATH%
+  - set LUA_PATH=;;c:\lua\5.1.5\LuaRocks\lua\?.lua;c:\lua\5.1.5\LuaRocks\lua\?\init.lua;c:\lua\5.1.5\LuaRocks\systree\share\lua\5.1\?.lua;c:\lua\5.1.5\LuaRocks\systree\share\lua\5.1\?\init.lua
+  - set LUA_CPATH=;;c:\lua\5.1.5\LuaRocks\systree\lib\lua\5.1\?.dll
   - luarocks install luacheck
   - cinst atom -y
   - cd %APPVEYOR_BUILD_FOLDER%
