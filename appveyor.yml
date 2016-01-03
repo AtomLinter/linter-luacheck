@@ -20,6 +20,7 @@ install:
   - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/winmake.bat' -FileName '.appveyor/winmake.bat'
   - call .appveyor\set_compiler_env.bat
   - call .appveyor\install.bat
+  - luarocks install luacheck
   - cinst atom -y
   - cd %APPVEYOR_BUILD_FOLDER%
   - "%LOCALAPPDATA%/atom/bin/apm install"
