@@ -4,7 +4,7 @@ dependencies:
     - sudo dpkg --install atom-amd64.deb || true
     - sudo apt-get -f install
     - sudo apt-get install lua5.1 luarocks
-    - luarocks install luacheck
+    - sudo luarocks install luacheck
     - apm install
 test:
   override:
