@@ -4,8 +4,8 @@ notifications:
     on_failure: change
 
 before_install:
-  - pip install hererocks
-  - hererocks here -r^ --lua 5.1
+  - wget https://raw.githubusercontent.com/mpeterv/hererocks/0.3.1/hererocks.py
+  - python hererocks.py here -r^ --lua 5.1 --downloads cache --builds cache --no-git-cache
   - export PATH=$PATH:$PWD/here/bin
   - luarocks install luacheck
 
@@ -13,8 +13,6 @@ script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.
 
 git:
   depth: 10
-
-language: python
 
 sudo: false
 
