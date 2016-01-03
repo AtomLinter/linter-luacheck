@@ -39,7 +39,7 @@ module.exports =
         eg `self, myvar`"
 
   activate: ->
-    console.log('active linter-luacheck')
+    require('atom-package-deps').install()
 
   provideLinter: ->
     provider =
