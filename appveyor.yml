@@ -7,6 +7,16 @@ deploy: off
 init:
   - cmd: rd /s /q %CHOCOLATEYINSTALL%
   - ps: iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+  - cmd: md .appveyor
+  - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/install.bat' -FileName '.appveyor/install.bat'
+  - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/set_compiler_env.bat' -FileName '.appveyor/set_compiler_env.bat'
+  - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/winmake.bat' -FileName '.appveyor/winmake.bat'
+  - call .appveyor\set_compiler_env.bat
+  - call .appveyor\install.bat
+
+cache:
+  - c:\lua -> appveyor.yml
+  - c:\external -> appveyor.yml
 
 install:
   - cinst atom -y
