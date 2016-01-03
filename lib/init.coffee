@@ -54,11 +54,9 @@ module.exports =
         globals = atom.config.get 'linter-luacheck.globals'
         ignore = atom.config.get 'linter-luacheck.ignore'
 
-        return helpers.exec(executable, makeParameters(globals, ignore, file),
-          {
-            cwd: path.dirname file
-            stdin: editor.getText()
-          }
-        ).then (output) ->
+        return helpers.exec(executable, makeParameters(globals, ignore, file), {
+          cwd: path.dirname file
+          stdin: editor.getText() or '\n'
+        }).then (output) ->
           return helpers.parse(output, pattern).map (v)->
             transformReport(v, file)
