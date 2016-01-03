@@ -4,9 +4,8 @@ notifications:
     on_failure: change
 
 before_install:
-  - wget https://raw.githubusercontent.com/mpeterv/hererocks/0.3.1/hererocks.py
-  - python hererocks.py here -r^ --lua 5.1 --downloads cache --builds cache --no-git-cache
-  - export PATH=$PATH:$PWD/here/bin
+  - brew update
+  - brew install lua
   - luarocks install luacheck
 
 script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
@@ -17,12 +16,11 @@ git:
 sudo: false
 
 os:
-  - linux
   - osx
 
 env:
   global:
-    - APM_TEST_PACKAGES=""
+    - APM_TEST_PACKAGES="linter"
 
   matrix:
     - ATOM_CHANNEL=stable
