@@ -13,7 +13,7 @@
     }
   },
   "main": "./lib/init",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "repository": "https://github.com/AtomLinter/linter-luacheck",
   "license": "MIT",
   "engines": {
