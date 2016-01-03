@@ -1,6 +1,6 @@
 # linter-luacheck
 
-[![Build Status](https://travis-ci.org/xpol/linter-luacheck.svg?branch=master)](https://travis-ci.org/xpol/linter-luacheck)
+[![Build Status](https://travis-ci.org/AtomLinter/linter-luacheck.svg?branch=master)](https://travis-ci.org/AtomLinter/linter-luacheck)
 
 This package will lint your opened Lua files in Atom, using [luacheck](https://github.com/mpeterv/luacheck).
 
