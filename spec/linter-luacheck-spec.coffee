@@ -1,7 +1,5 @@
 describe 'The luacheck provider for Linter', ->
   lint = require('../lib/init').provideLinter().lint
-  helpers = require('atom-linter')
-  luacheck = '/Users/xpol/.luaenv/shims/luacheck'
 
   openFixtureFileInAtom = (file) ->
     return atom.workspace.open(__dirname + '/fixtures/' + file)
