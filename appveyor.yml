@@ -14,9 +14,9 @@ cache:
 
 install:
   - cmd: md .appveyor
-  - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/install.bat' -FileName '.appveyor/install.bat'
-  - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/set_compiler_env.bat' -FileName '.appveyor/set_compiler_env.bat'
-  - ps: Start-FileDownload 'https://raw.githubusercontent.com/ignacio/lua-appveyor-example/master/.appveyor/winmake.bat' -FileName '.appveyor/winmake.bat'
+  - ps: Start-FileDownload 'https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/install.bat' -FileName '.appveyor/install.bat'
+  - ps: Start-FileDownload 'https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/set_compiler_env.bat' -FileName '.appveyor/set_compiler_env.bat'
+  - ps: Start-FileDownload 'https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/winmake.bat' -FileName '.appveyor/winmake.bat'
   - call .appveyor\set_compiler_env.bat >NUL 2>&1
   - call .appveyor\install.bat >NUL 2>&1
   - set PATH=c:\lua\5.1.5\bin\;c:\lua\5.1.5\LuaRocks;c:\lua\5.1.5\LuaRocks\systree\bin;%PATH%
