@@ -1,6 +1,7 @@
 helpers = require('atom-linter')
 path = require 'path'
 
+isWindows = /^win/.test(process.platform)
 pattern = '.+:(?<line>\\d+):(?<col>\\d+)-(?<colEnd>\\d+):' +
   ' \\((?<type>[EW])\\d+\\) (?<message>.*)'
 
@@ -49,7 +50,7 @@ module.exports =
       lint: (editor) ->
         file = editor.getPath()
         executable = atom.config.get 'linter-luacheck.executable'
-        if /^win/.test(process.platform) and path.extname(executable) != '.bat'
+        if isWindows and path.extname(executable) != '.bat'
           executable += '.bat'
         globals = atom.config.get 'linter-luacheck.globals'
         ignore = atom.config.get 'linter-luacheck.ignore'
