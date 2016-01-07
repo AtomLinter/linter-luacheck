@@ -14,9 +14,9 @@ cache:
 
 install:
   - cmd: md .appveyor
-  - ps: Start-FileDownload 'https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/install.bat' -FileName '.appveyor/install.bat'
-  - ps: Start-FileDownload 'https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/set_compiler_env.bat' -FileName '.appveyor/set_compiler_env.bat'
-  - ps: Start-FileDownload 'https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/winmake.bat' -FileName '.appveyor/winmake.bat'
+  - appveyor DownloadFile https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/install.bat -FileName .appveyor/install.bat
+  - appveyor DownloadFile https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/set_compiler_env.bat -FileName .appveyor/set_compiler_env.bat
+  - appveyor DownloadFile https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/winmake.bat -FileName .appveyor/winmake.bat
   - call .appveyor\set_compiler_env.bat >NUL 2>&1
   - call .appveyor\install.bat >NUL 2>&1
   - set PATH=c:\lua\5.1.5\bin\;c:\lua\5.1.5\LuaRocks;c:\lua\5.1.5\LuaRocks\systree\bin;%PATH%
@@ -24,7 +24,8 @@ install:
   - set LUA_PATH=;;c:\lua\5.1.5\LuaRocks\lua\?.lua;c:\lua\5.1.5\LuaRocks\lua\?\init.lua;c:\lua\5.1.5\LuaRocks\systree\share\lua\5.1\?.lua;c:\lua\5.1.5\LuaRocks\systree\share\lua\5.1\?\init.lua
   - set LUA_CPATH=;;c:\lua\5.1.5\LuaRocks\systree\lib\lua\5.1\?.dll
   - luarocks install luacheck
-  - cinst atom -y
+  - appveyor DownloadFile https://atom.io/download/windows -FileName AtomSetup.exe
+  - AtomSetup.exe /silent
   - cd %APPVEYOR_BUILD_FOLDER%
   - "%LOCALAPPDATA%/atom/bin/apm install"
 
