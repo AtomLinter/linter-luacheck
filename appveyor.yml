@@ -23,6 +23,8 @@ install:
   - set LUA_PATH=;;c:\lua\5.1.5\LuaRocks\lua\?.lua;c:\lua\5.1.5\LuaRocks\lua\?\init.lua;c:\lua\5.1.5\LuaRocks\systree\share\lua\5.1\?.lua;c:\lua\5.1.5\LuaRocks\systree\share\lua\5.1\?\init.lua
   - set LUA_CPATH=;;c:\lua\5.1.5\LuaRocks\systree\lib\lua\5.1\?.dll
   - luarocks install luacheck
+  - where luacheck
+  - luacheck -v
   - appveyor DownloadFile https://atom.io/download/windows -FileName AtomSetup.exe
   - AtomSetup.exe /silent
   - cd %APPVEYOR_BUILD_FOLDER%
