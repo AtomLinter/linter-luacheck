@@ -27,7 +27,7 @@
     "linter"
   ],
   "devDependencies": {
-    "coffeelint": "^1.14.2"
+    "coffeelint": "^1.15.1"
   },
   "scripts": {
     "lint": "./node_modules/.bin/coffeelint lib spec"
