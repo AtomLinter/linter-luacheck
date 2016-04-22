@@ -8,10 +8,6 @@ environment:
   LUA_VER: 5.1.5
   LUAROCKS_VER: HEAD
 
-cache:
-  - c:\lua -> appveyor.yml
-  - c:\external -> appveyor.yml
-
 install:
   - cmd: md .appveyor
   - appveyor DownloadFile https://cdn.rawgit.com/ignacio/lua-appveyor-example/0f1932a380ae29d0962db065934556edaf700794/.appveyor/install.bat -FileName .appveyor/install.bat
