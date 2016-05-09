@@ -58,6 +58,7 @@ module.exports =
         return helpers.exec(executable, makeParameters(globals, ignore, file), {
           cwd: path.dirname file
           stdin: editor.getText() or '\n'
+          stream: 'both'
         }).then (output) ->
           return helpers.parse(output, pattern).map (v)->
             transformReport(v, file)
