@@ -62,5 +62,5 @@ module.exports =
           stdin: editor.getText() or '\n'
           stream: 'both'
         }).then (output) ->
-          return helpers.parse(output, pattern).map (v)->
+          return helpers.parse(output.stdout, pattern).map (v)->
             transformReport(v, file)
