@@ -63,6 +63,5 @@ module.exports =
           stream: 'stdout'
           ignoreExitCode: true
         }).then (stdout) ->
-          atom.notifications.addInfo(stdout)
           return helpers.parse(stdout, pattern).map (v)->
             transformReport(v, file)
