@@ -17,8 +17,30 @@ This package will lint your opened Lua files in Atom, using [luacheck](https://g
 Atom -> Preferences... -> Packages -> linter-luacheck -> Settings:
 
 * **Executable** Path to your luacheck executable.
-* **Globals** Add more globals names to standard ones, separated by comma, eg `jit, bit`.
-* **Ignore** Ignore warnings related to these variables names, separated by comma, eg `self, myvar`.
+
+To config luacheck, you may:
+
+Use [config file](http://luacheck.readthedocs.io/en/0.12.0/config.html) named `.luacheckrc` (in project root and/or Lua source dirs).
+
+Example `.luacheckrc` at project root:
+
+```lua
+files['*.rockspec'].global = false
+files['.luacheckrc'].global = false
+files['spec/*_spec.lua'].std = 'min+busted'
+```
+
+Or use luacheck [inline options](http://luacheck.readthedocs.io/en/0.12.0/inline.html).
+
+Example `project/luafile.lua`:
+
+```lua
+-- luacheck: ignore self
+local lib = {}
+function lib.add(self, a, b)
+  return a+b
+end
+```
 
 ## Contribute
 
