@@ -35,9 +35,8 @@ Or use luacheck [inline options](http://luacheck.readthedocs.io/en/0.12.0/inline
 Example `project/luafile.lua`:
 
 ```lua
--- luacheck: ignore self
 local lib = {}
-function lib.add(self, a, b)
+function lib.add(self, a, b) -- luacheck: ignore self
   return a+b
 end
 ```
