@@ -20,7 +20,7 @@ Atom -> Preferences... -> Packages -> linter-luacheck -> Settings:
 
 To config luacheck, you may:
 
-Use [config file](http://luacheck.readthedocs.io/en/0.12.0/config.html) named `.luacheckrc` (in project root and/or Lua source dirs).
+Use [config file](http://luacheck.readthedocs.io/en/stable/config.html) named `.luacheckrc` (in project root and/or Lua source dirs).
 
 Example `.luacheckrc` at project root:
 
@@ -30,7 +30,7 @@ files['.luacheckrc'].global = false
 files['spec/*_spec.lua'].std = 'min+busted'
 ```
 
-Or use luacheck [inline options](http://luacheck.readthedocs.io/en/0.12.0/inline.html).
+Or use luacheck [inline options](http://luacheck.readthedocs.io/en/stable/inline.html).
 
 Example `project/luafile.lua`:
 
