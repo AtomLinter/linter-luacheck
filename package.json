@@ -8,7 +8,7 @@
   "providedServices": {
     "linter": {
       "versions": {
-        "1.0.0": "provideLinter"
+        "2.0.0": "provideLinter"
       }
     }
   },
@@ -17,7 +17,7 @@
   "repository": "https://github.com/AtomLinter/linter-luacheck",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.0.0"
+    "atom": ">=1.14.0 <2.0.0"
   },
   "dependencies": {
     "atom-linter": "^10.0.0",

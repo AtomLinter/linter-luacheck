@@ -32,27 +32,27 @@ describe 'The luacheck provider for Linter', ->
       return openFixtureFileInAtom('warning.lua').then (editor) ->
         return lint(editor).then (messages) ->
           expect(messages.length).toEqual 1
-          expect(messages[0].type).toBeDefined()
-          expect(messages[0].type).toEqual('Warning')
-          expect(messages[0].text).toBeDefined()
-          expect(messages[0].text).toEqual("unused argument 'self'")
-          expect(messages[0].filePath).toBeDefined()
-          expect(messages[0].filePath).toMatch(/.+warning\.lua$/)
-          expect(messages[0].range).toBeDefined()
-          expect(messages[0].range.length).toEqual(2)
-          expect(messages[0].range).toEqual([[2, 10], [2, 11]])
+          expect(messages[0].severity).toBeDefined()
+          expect(messages[0].severity).toEqual('warning')
+          expect(messages[0].excerpt).toBeDefined()
+          expect(messages[0].excerpt).toEqual("unused argument 'self'")
+          expect(messages[0].location.file).toBeDefined()
+          expect(messages[0].location.file).toMatch(/.+warning\.lua$/)
+          expect(messages[0].location.position).toBeDefined()
+          expect(messages[0].location.position.length).toEqual(2)
+          expect(messages[0].location.position).toEqual([[2, 10], [2, 11]])
 
   it 'finds error in error.lua', ->
     waitsForPromise ->
       return openFixtureFileInAtom('error.lua').then (editor) ->
         return lint(editor).then (messages) ->
           expect(messages.length).toEqual 1
-          expect(messages[0].type).toBeDefined()
-          expect(messages[0].type).toEqual('Error')
-          expect(messages[0].text).toBeDefined()
-          expect(messages[0].text).toEqual("expected identifier near 'local'")
-          expect(messages[0].filePath).toBeDefined()
-          expect(messages[0].filePath).toMatch(/.+error\.lua$/)
-          expect(messages[0].range).toBeDefined()
-          expect(messages[0].range.length).toEqual(2)
-          expect(messages[0].range).toEqual([[2, 6], [2, 11]])
+          expect(messages[0].severity).toBeDefined()
+          expect(messages[0].severity).toEqual('error')
+          expect(messages[0].excerpt).toBeDefined()
+          expect(messages[0].excerpt).toEqual("expected identifier near 'local'")
+          expect(messages[0].location.file).toBeDefined()
+          expect(messages[0].location.file).toMatch(/.+error\.lua$/)
+          expect(messages[0].location.position).toBeDefined()
+          expect(messages[0].location.position.length).toEqual(2)
+          expect(messages[0].location.position).toEqual([[2, 6], [2, 11]])

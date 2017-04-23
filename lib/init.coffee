@@ -16,11 +16,15 @@ makeParameters = (globals, ignore, file) ->
   checkedAppend parameters, '--ignore', ignore
   parameters
 
-transformReport = (report, file) ->
-  report.type = if report.type == 'E' then 'Error' else 'Warning'
+reportToMessage = (report, file) ->
   ++report.range[1][1]
-  report.filePath = file
-  report
+
+  message =
+    location:
+      file: file
+      position: report.range
+    severity: if report.type == 'E' then 'error' else 'warning'
+    excerpt: report.text
 
 module.exports =
   config:
@@ -44,9 +48,10 @@ module.exports =
 
   provideLinter: ->
     provider =
+      name: 'Luacheck'
       grammarScopes: ['source.lua']
       scope: 'file'
-      lintOnFly: true
+      lintsOnChange: true
       lint: (editor) ->
         helpers ?= require('atom-linter')
         path ?= require('path')
@@ -64,4 +69,4 @@ module.exports =
           ignoreExitCode: true
         }).then (stdout) ->
           return helpers.parse(stdout, pattern).map (v)->
-            transformReport(v, file)
+            reportToMessage(v, file)
