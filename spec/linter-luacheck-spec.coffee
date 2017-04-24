@@ -45,12 +45,14 @@ describe 'The luacheck provider for Linter', ->
   it 'finds error in error.lua', ->
     waitsForPromise ->
       return openFixtureFileInAtom('error.lua').then (editor) ->
+        error_str = "expected identifier near 'local'"
+
         return lint(editor).then (messages) ->
           expect(messages.length).toEqual 1
           expect(messages[0].severity).toBeDefined()
           expect(messages[0].severity).toEqual('error')
           expect(messages[0].excerpt).toBeDefined()
-          expect(messages[0].excerpt).toEqual("expected identifier near 'local'")
+          expect(messages[0].excerpt).toEqual(error_str)
           expect(messages[0].location.file).toBeDefined()
           expect(messages[0].location.file).toMatch(/.+error\.lua$/)
           expect(messages[0].location.position).toBeDefined()
