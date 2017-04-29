@@ -10,10 +10,13 @@ checkedAppend = (parameters, opt, args) ->
     parameters.push opt
     parameters.push(args...)
 
-makeParameters = (globals, ignore, file) ->
+makeParameters = (globals, ignore, std, file) ->
   parameters = ['-', '--no-color', '--codes', '--ranges', "--filename=" + file]
   checkedAppend parameters, '--globals', globals
   checkedAppend parameters, '--ignore', ignore
+  if std.length > 0
+    parameters.push '--std'
+    parameters.push(std.join '+')
   parameters
 
 reportToMessage = (report, file) ->
@@ -32,6 +35,11 @@ module.exports =
       type: 'string'
       default: 'luacheck'
       description: 'The executable path to luacheck.'
+    standard:
+      type: 'array'
+      default: []
+      description: "List of comma separated standards.
+        eg. `min, busted`"
     globals:
       type: 'array'
       default: []
@@ -61,8 +69,11 @@ module.exports =
           executable += '.bat'
         globals = atom.config.get 'linter-luacheck.globals'
         ignore = atom.config.get 'linter-luacheck.ignore'
+        std = atom.config.get 'linter-luacheck.standard'
 
-        return helpers.exec(executable, makeParameters(globals, ignore, file), {
+        parameters = makeParameters(globals, ignore, std, file)
+
+        return helpers.exec(executable, parameters, {
           cwd: path.dirname file
           stdin: editor.getText() or '\n'
           stream: 'stdout'
