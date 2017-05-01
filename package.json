@@ -2,9 +2,29 @@
   "name": "linter-luacheck",
   "description": "Lint Lua on the fly, using luacheck",
   "keywords": [
+    "lint",
     "linter",
-    "lua"
+    "lua",
+    "luacheck",
+    "lua-lint"
   ],
+  "configSchema": {
+    "executable": {
+      "type": "string",
+      "default": "luacheck",
+      "description": "The executable path to luacheck."
+    },
+    "globals": {
+      "type": "array",
+      "default": [],
+      "description": "Add follow comma separated globals on top of standard ones. eg. `jit, bit`"
+    },
+    "ignore": {
+      "type": "array",
+      "default": [],
+      "description": "Ignore warnings related to these comma separated variables. eg `self, myvar`"
+    }
+  },
   "providedServices": {
     "linter": {
       "versions": {
@@ -27,9 +47,38 @@
     "linter:2.0.0"
   ],
   "devDependencies": {
-    "coffeelint": "^1.15.7"
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "jasmine-fix": "^1.0.1"
+  },
+  "eslintConfig": {
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "global-require": "off",
+      "no-console": "off",
+      "import/no-unresolved": [
+        "error",
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    },
+    "extends": "airbnb-base",
+    "globals": {
+      "atom": true
+    },
+    "env": {
+      "node": true,
+      "browser": true
+    }
   },
   "scripts": {
-    "lint": "./node_modules/.bin/coffeelint lib spec"
+    "lint": "./node_modules/.bin/eslint lib spec"
   }
 }

@@ -1,12 +1,15 @@
 dependencies:
   override:
-    - curl -L -o atom-amd64.deb https://atom.io/download/deb
-    - sudo dpkg --install atom-amd64.deb || true
-    - sudo apt-get update
-    - sudo apt-get -f install
+    - curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
+    - chmod u+x build-package.sh
     - sudo apt-get install lua5.1 luarocks
     - sudo luarocks install luacheck
-    - apm install
+
 test:
   override:
-    - apm test
+    - ./build-package.sh
+
+machine:
+  environment:
+    ATOM_LINT_WITH_BUNDLED_NODE: "false"
+    APM_TEST_PACKAGES: "linter"
