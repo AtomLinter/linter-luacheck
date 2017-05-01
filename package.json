@@ -14,6 +14,11 @@
       "default": "luacheck",
       "description": "The executable path to luacheck."
     },
+    "standards": {
+      "type": "array",
+      "default": ["_G"],
+      "description": "List of comma separated standards. eg. `min, busted`"
+    },
     "globals": {
       "type": "array",
       "default": [],
