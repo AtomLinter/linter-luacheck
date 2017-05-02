@@ -1,20 +1,28 @@
-version: "{build}"
-os: Windows Server 2012 R2
+### Project specific config ###
+environment:
+  matrix:
+  - ATOM_CHANNEL: stable
+  - ATOM_CHANNEL: beta
 
-test: off
-deploy: off
+### Generic setup follows ###
+build_script:
+  - luacheck -v
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
 
+### Install luacheck ###
 install:
-  # Install luacheck
   - appveyor DownloadFile https://dl.bintray.com/xpol/luavm/LuaVM-0.2.0-vs2015-x86.exe -FileName LuaVM.exe
   - LuaVM.exe /verysilent /dir=C:\luavm
   - set PATH=C:\luavm\luavm\versions\luajit-2.1;%PATH%
   - luarocks install luacheck
-  # Install Atom
-  - appveyor DownloadFile https://atom.io/download/windows -FileName AtomSetup.exe
-  - AtomSetup.exe /silent
-  - set PATH=%LOCALAPPDATA%\atom\bin;%PATH%
-  - apm install
 
-build_script:
-  - apm test --path "%LOCALAPPDATA%/atom/bin/atom.cmd"
+branches:
+  only:
+    - master
+
+version: "{build}"
+platform: x64
+clone_depth: 10
+skip_tags: true
+test: off
+deploy: off
