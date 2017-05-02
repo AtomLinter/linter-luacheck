@@ -7,9 +7,5 @@ dependencies:
 
 test:
   override:
+    - luacheck -v
     - ./build-package.sh
-
-machine:
-  environment:
-    ATOM_LINT_WITH_BUNDLED_NODE: "false"
-    APM_TEST_PACKAGES: "linter"

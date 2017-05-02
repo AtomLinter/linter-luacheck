@@ -1,7 +1,8 @@
 'use babel';
 
 import { join } from 'path';
-import { beforeEach, it } from 'jasmine-fix'; // eslint-disable-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
+import { beforeEach, it, fit } from 'jasmine-fix';
 import linterLuacheck from '../lib/init';
 
 const emptyPath = join(__dirname, 'fixtures', 'empty.lua');
@@ -42,35 +43,25 @@ describe('The luacheck provider for Linter', () => {
     expect(result.length).toEqual(0);
   });
 
-  it('finds warning in warning.lua', async () => {
+  it('finds a warning in warning.lua', async () => {
     const editor = await atom.workspace.open(warningPath);
     const result = await lint(editor);
 
-    expect(result.length).toEqual(1);
-    expect(result[0].severity).toBeDefined();
-    expect(result[0].severity).toEqual('warning');
-    expect(result[0].excerpt).toBeDefined();
-    expect(result[0].excerpt).toEqual(warningStr);
-    expect(result[0].location.file).toBeDefined();
-    expect(result[0].location.file).toMatch(/.+warning\.lua$/);
-    expect(result[0].location.position).toBeDefined();
-    expect(result[0].location.position.length).toEqual(2);
+    expect(result.length).toBe(1);
+    expect(result[0].severity).toBe('warning');
+    expect(result[0].excerpt).toBe(warningStr);
+    expect(result[0].location.file).toBe(warningPath);
     expect(result[0].location.position).toEqual([[2, 10], [2, 11]]);
   });
 
-  it('finds error in error.lua', async () => {
+  it('finds an error in error.lua', async () => {
     const editor = await atom.workspace.open(errorPath);
     const result = await lint(editor);
 
-    expect(result.length).toEqual(1);
-    expect(result[0].severity).toBeDefined();
-    expect(result[0].severity).toEqual('error');
-    expect(result[0].excerpt).toBeDefined();
-    expect(result[0].excerpt).toEqual(errorStr);
-    expect(result[0].location.file).toBeDefined();
-    expect(result[0].location.file).toMatch(/.+error\.lua$/);
-    expect(result[0].location.position).toBeDefined();
-    expect(result[0].location.position.length).toEqual(2);
+    expect(result.length).toBe(1);
+    expect(result[0].severity).toBe('error');
+    expect(result[0].excerpt).toBe(errorStr);
+    expect(result[0].location.file).toBe(errorPath);
     expect(result[0].location.position).toEqual([[2, 6], [2, 11]]);
   });
 });

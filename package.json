@@ -9,25 +9,25 @@
     "lua-lint"
   ],
   "configSchema": {
-    "executable": {
+    "executablePath": {
       "type": "string",
       "default": "luacheck",
-      "description": "The executable path to luacheck."
+      "description": "The executable path to Luacheck."
     },
     "standards": {
       "type": "array",
       "default": ["_G"],
-      "description": "List of comma separated standards. eg. `min, busted`"
+      "description": "List of comma separated standards (eg. `min, busted`)."
     },
     "globals": {
       "type": "array",
       "default": [],
-      "description": "Add follow comma separated globals on top of standard ones. eg. `jit, bit`"
+      "description": "Add the following comma separated globals on top of standard ones (eg. `jit, bit`)."
     },
     "ignore": {
       "type": "array",
       "default": [],
-      "description": "Ignore warnings related to these comma separated variables. eg `self, myvar`"
+      "description": "Ignore warnings related to these comma separated variables (eg `self, myvar`),"
     }
   },
   "providedServices": {
@@ -84,6 +84,6 @@
     }
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint lib spec"
+    "lint": "eslint ."
   }
 }
