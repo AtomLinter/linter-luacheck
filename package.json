@@ -16,7 +16,9 @@
     },
     "standards": {
       "type": "array",
-      "default": ["_G"],
+      "default": [
+        "_G"
+      ],
       "description": "List of comma separated standards (eg. `min, busted`)."
     },
     "globals": {
@@ -38,7 +40,7 @@
     }
   },
   "main": "./lib/init",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "repository": "https://github.com/AtomLinter/linter-luacheck",
   "license": "MIT",
   "engines": {
