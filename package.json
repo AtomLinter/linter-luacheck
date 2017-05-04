@@ -16,9 +16,7 @@
     },
     "standards": {
       "type": "array",
-      "default": [
-        "_G"
-      ],
+      "default": [],
       "description": "List of comma separated standards (eg. `min, busted`)."
     },
     "globals": {
