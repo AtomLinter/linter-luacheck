@@ -1,7 +1,7 @@
 'use babel';
 
 import { join } from 'path';
-// eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
+// eslint-disable-next-line no-unused-vars
 import { beforeEach, it, fit } from 'jasmine-fix';
 import linterLuacheck from '../lib/init';
 
@@ -14,7 +14,7 @@ const errorStr = "expected identifier near 'local'";
 const warningStr = "unused argument 'self'";
 
 describe('The luacheck provider for Linter', () => {
-  const lint = linterLuacheck.provideLinter().lint;
+  const { lint } = linterLuacheck.provideLinter();
 
   beforeEach(async () => {
     atom.workspace.destroyActivePaneItem();
@@ -22,12 +22,10 @@ describe('The luacheck provider for Linter', () => {
   });
 
   it('should be in the packages list', () =>
-    expect(atom.packages.isPackageLoaded('linter-luacheck')).toBe(true)
-  );
+    expect(atom.packages.isPackageLoaded('linter-luacheck')).toBe(true));
 
   it('should be an active package', () =>
-    expect(atom.packages.isPackageActive('linter-luacheck')).toBe(true)
-  );
+    expect(atom.packages.isPackageActive('linter-luacheck')).toBe(true));
 
   it('finds nothing wrong with an empty file', async () => {
     const editor = await atom.workspace.open(emptyPath);
