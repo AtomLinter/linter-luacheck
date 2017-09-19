@@ -2,12 +2,9 @@
 language: generic
 
 env:
-  matrix:
-    - ATOM_CHANNEL=stable
-    - ATOM_CHANNEL=beta
+  ATOM_CHANNEL: stable
 
-os:
-  - osx
+os: osx
 
 ### Install luacheck ###
 install:
