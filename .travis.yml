@@ -10,6 +10,7 @@ os: osx
 install:
   - brew update
   - brew install lua
+  - brew install luarocks
   - luarocks install luacheck
 
 ### Generic setup follows ###
