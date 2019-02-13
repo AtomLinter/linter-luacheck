@@ -1,8 +1,10 @@
 'use babel';
 
 import { join } from 'path';
-// eslint-disable-next-line no-unused-vars
-import { beforeEach, it, fit } from 'jasmine-fix';
+import {
+  // eslint-disable-next-line no-unused-vars
+  it, fit, wait, beforeEach, afterEach
+} from 'jasmine-fix';
 import linterLuacheck from '../lib/init';
 
 const emptyPath = join(__dirname, 'fixtures', 'empty.lua');
@@ -21,11 +23,13 @@ describe('The luacheck provider for Linter', () => {
     await atom.packages.activatePackage('linter-luacheck');
   });
 
-  it('should be in the packages list', () =>
-    expect(atom.packages.isPackageLoaded('linter-luacheck')).toBe(true));
+  it('should be in the packages list', () => {
+    expect(atom.packages.isPackageLoaded('linter-luacheck')).toBe(true);
+  });
 
-  it('should be an active package', () =>
-    expect(atom.packages.isPackageActive('linter-luacheck')).toBe(true));
+  it('should be an active package', () => {
+    expect(atom.packages.isPackageActive('linter-luacheck')).toBe(true);
+  });
 
   it('finds nothing wrong with an empty file', async () => {
     const editor = await atom.workspace.open(emptyPath);
