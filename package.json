@@ -39,6 +39,7 @@
   },
   "main": "./lib/init",
   "version": "2.0.1",
+  "private": true,
   "repository": "https://github.com/AtomLinter/linter-luacheck",
   "license": "MIT",
   "engines": {
@@ -82,6 +83,21 @@
       "node": true,
       "browser": true
     }
+  },
+  "renovate": {
+    "extends": [
+      "config:base"
+    ],
+    "semanticCommits": true,
+    "rangeStrategy": "pin",
+    "packageRules": [
+      {
+        "packagePatterns": [
+          "^eslint"
+        ],
+        "groupName": "ESLint packages"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint ."
